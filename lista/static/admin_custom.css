@@ -1,0 +1,5 @@
+/* Redondear tarjetas y cambiar colores de la tabla */
+.results table { border-radius: 15px; overflow: hidden; border: none !important; }
+#result_list thead th { background: #1a73e8 !important; color: white; border: none; }
+.row1 { background-color: #252525 !important; }
+.row2 { background-color: #2d2d2d !important; }
