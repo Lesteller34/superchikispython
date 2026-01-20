@@ -12,7 +12,7 @@ def index(request):
                 nombre=nombre, 
                 categoria=categoria, 
                 imagen=imagen,
-                en_casa=False 
+                en_casa=True 
             )
         return redirect('index')
 
