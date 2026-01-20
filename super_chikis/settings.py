@@ -108,3 +108,6 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+# settings.py
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join('/app/data', 'media') # Si tu volumen está en /app/data
