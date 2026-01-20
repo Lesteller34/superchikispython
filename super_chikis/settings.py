@@ -108,9 +108,25 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-# settings.py
+
+# 1. URL pública para acceder a las fotos
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join('/app/data', 'media') # Si tu volumen está en /app/data
-# Crea la carpeta si no existe (truco de ingeniería para evitar el Error 500)
+
+# 2. Ruta física en el servidor (Dinámica)
+# Si Railway nos da una ruta de volumen, la usamos; si no, usamos la carpeta local
+RAILWAY_VOLUME = os.getenv('RAILWAY_VOLUME_MOUNT_PATH')
+
+if RAILWAY_VOLUME:
+    # En producción (Railway)
+    MEDIA_ROOT = os.path.join(RAILWAY_VOLUME, 'media')
+else:
+    # En tu computadora local
+    MEDIA_ROOT = BASE_DIR / 'media'
+
+# 3. TRUCO DE INGENIERÍA: Crear la carpeta automáticamente
+# Esto evita el "Error 500" porque Django no puede guardar en una carpeta que no existe
 if not os.path.exists(MEDIA_ROOT):
-    os.makedirs(MEDIA_ROOT)
+    try:
+        os.makedirs(MEDIA_ROOT, exist_ok=True)
+    except OSError as e:
+        print(f"Error creando MEDIA_ROOT: {e}")
