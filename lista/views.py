@@ -26,6 +26,8 @@ def marcar_comprado(request, producto_id):
     producto.en_casa = not producto.en_casa
     producto.save()
     return redirect('index')
+
 def eliminar_producto(request, producto_id):
-    Producto.objects.get(id=producto_id).delete()
+    producto = Producto.objects.get(id=producto_id)
+    producto.delete()
     return redirect('index')
