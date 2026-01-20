@@ -111,3 +111,6 @@ SESSION_COOKIE_SECURE = True
 # settings.py
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join('/app/data', 'media') # Si tu volumen está en /app/data
+# Crea la carpeta si no existe (truco de ingeniería para evitar el Error 500)
+if not os.path.exists(MEDIA_ROOT):
+    os.makedirs(MEDIA_ROOT)
