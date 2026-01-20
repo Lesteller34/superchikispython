@@ -31,7 +31,13 @@
                 {% for p in comprar %}
                 <div class="list-group-item d-flex justify-content-between align-items-center border-0 mb-2">
                     <div class="d-flex align-items-center">
-                        {% if p.imagen %}<img src="{{ p.imagen.url }}" class="product-image">{% else %}<div class="product-image d-flex align-items-center justify-content-center"><span class="material-icons text-muted">image</span></div>{% endif %}
+                        {% if p.imagen %}
+                            <img src="{{ p.imagen.url }}" class="product-image">
+                        {% else %}
+                            <div class="product-image d-flex align-items-center justify-content-center">
+                                <span class="material-icons text-muted">image</span>
+                            </div>
+                        {% endif %}
                         <div>
                             <div class="product-name">{{ p.nombre }}</div>
                             <span class="badge category-tag">{{ p.get_categoria_display }}</span>
@@ -41,10 +47,17 @@
                         <a href="{% url 'eliminar_producto' p.id %}" class="text-danger me-3" onclick="return confirm('¿Seguro, Bro?')">
                             <span class="material-icons">delete</span>
                         </a>
-                        <a href="{% url 'marcar_comprado' p.id %}" class="btn btn-success btn-action shadow"><span class="material-icons">check</span></a>
+                        <a href="{% url 'marcar_comprado' p.id %}" class="btn btn-success btn-action shadow">
+                            <span class="material-icons">check</span>
+                        </a>
                     </div>
                 </div>
-                {% empty %}<div class="text-center py-4 text-muted"><span class="material-icons border rounded-circle p-2 mb-2">task_alt</span><p>¡No falta nada!</p></div>{% endfor %}
+                {% empty %}
+                <div class="text-center py-4 text-muted">
+                    <span class="material-icons border rounded-circle p-2 mb-2">task_alt</span>
+                    <p>¡No falta nada!</p>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -63,7 +76,9 @@
                         <a href="{% url 'eliminar_producto' p.id %}" class="text-danger me-3" onclick="return confirm('¿Borrar producto?')">
                             <span class="material-icons">delete</span>
                         </a>
-                        <a href="{% url 'marcar_comprado' p.id %}" class="btn btn-outline-danger btn-action"><span class="material-icons">close</span></a>
+                        <a href="{% url 'marcar_comprado' p.id %}" class="btn btn-outline-danger btn-action">
+                            <span class="material-icons">close</span>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}
@@ -72,12 +87,17 @@
     </div>
 </div>
 
-<button class="btn btn-primary fab shadow-lg" data-bs-toggle="modal" data-bs-target="#addModal"><span class="material-icons" style="font-size: 35px;">add</span></button>
+<button class="btn btn-primary fab shadow-lg" data-bs-toggle="modal" data-bs-target="#addModal">
+    <span class="material-icons" style="font-size: 35px;">add</span>
+</button>
 
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content bg-dark border-secondary shadow-lg">
-            <div class="modal-header border-secondary text-white"><h5 class="modal-title">Nuevo Producto</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+            <div class="modal-header border-secondary text-white">
+                <h5 class="modal-title">Nuevo Producto</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="modal-body">
@@ -87,14 +107,19 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-info small">Categoría</label>
-                        <select name="categoria" class="form-select bg-secondary text-white border-0"><option value="BASICO">Básico</option><option value="OCASIONAL">Ocasional</option></select>
+                        <select name="categoria" class="form-select bg-secondary text-white border-0">
+                            <option value="BASICO">Básico</option>
+                            <option value="OCASIONAL">Ocasional</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-info small text-uppercase">Foto (Opcional)</label>
                         <input type="file" name="imagen" class="form-control bg-secondary text-white border-0" accept="image/*">
                     </div>
                 </div>
-                <div class="p-3"><button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-4 shadow">AÑADIR A LA LISTA</button></div>
+                <div class="p-3">
+                    <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-4 shadow">AÑADIR A LA LISTA</button>
+                </div>
             </form>
         </div>
     </div>
